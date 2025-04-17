@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelAI - Your Smart Travel Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TravelAI</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#ai-assistant">AI Assistant</a>
+            <a href="#plan-trip">Plan Trip</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="city-search" placeholder="Search for a city...">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+        </div>
+    </nav>
+
+    <div id="search-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="search-results">
+                <div class="city-info">
+                    <h2 id="city-name"></h2>
+                    <div class="city-details">
+                        <div class="info-section">
+                            <h3>About</h3>
+                            <p id="city-description"></p>
+                        </div>
+                        <div class="info-section">
+                            <h3>Best Places to Visit</h3>
+                            <ul id="places-to-visit"></ul>
+                        </div>
+                        <div class="info-section">
+                            <h3>Recommended Hotels</h3>
+                            <ul id="hotels-list"></ul>
+                        </div>
+                        <div class="info-section">
+                            <h3>Travel Distance</h3>
+                            <p id="travel-distance">Allow location access to see distance from your current location</p>
+                            <div id="map-container" style="height: 300px; margin-top: 15px; display: none;">
+                                <div id="map" style="height: 100%; border-radius: 8px;"></div>
+                            </div>
+                            <div id="maps-link-container" style="margin-top: 15px; text-align: center;">
+                                <a id="maps-link" href="#" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                                    <i class="fas fa-map-marker-alt"></i> View on Google Maps
+                                </a>
+                                <div id="debug-message" style="margin-top: 10px; color: #666; font-size: 12px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1>Discover the World with AI</h1>
+            <p>Let our intelligent travel assistant help you plan your perfect journey</p>
+            <a href="plan.html" class="cta-button">Start Planning</a>
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2>Smart Travel Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-robot"></i>
+                <h3>AI Trip Planner</h3>
+                <p>Get personalized travel recommendations based on your preferences</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Smart Itinerary</h3>
+                <p>Optimized daily schedules based on your interests and time</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-language"></i>
+                <h3>Real-time Translation</h3>
+                <p>Break language barriers with our AI-powered translation</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-assistant" class="ai-assistant-section">
+        <div class="assistant-container">
+            <div class="assistant-content">
+                <h2>Your AI Travel Assistant</h2>
+                <p>Ask our AI assistant anything about your travel plans</p>
+                <div class="chat-interface">
+                    <div id="chat-messages" class="chat-messages"></div>
+                    <form id="chat-form" class="chat-form">
+                        <input type="text" id="chat-input" placeholder="Ask about destinations, hotels, or activities...">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="destinations" class="destinations-section">
+        <h2>Popular Destinations</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <img src="https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg" alt="Taj Mahal">
+                <h3>Agra, India</h3>
+                <p>Home of the Iconic Taj Mahal</p>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.pexels.com/photos/358528/pexels-photo-358528.jpeg" alt="Hawa Mahal">
+                <h3>Jaipur, India</h3>
+                <p>The Pink City of Royal Heritage</p>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg" alt="Goa Beach">
+                <h3>Goa, India</h3>
+                <p>Beaches, Culture, and Vibrant Nightlife</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="plan-trip" class="plan-trip-section">
+        <h2>Plan Your Trip</h2>
+        <form class="trip-planning-form" id="tripForm">
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" required placeholder="Where do you want to go?">
+            </div>
+            <div class="form-group">
+                <label for="travel-dates">Travel Dates</label>
+                <input type="text" id="travel-dates" name="travel-dates" required placeholder="Select your travel dates">
+            </div>
+            <div class="form-group">
+                <label for="travelers">Number of Travelers</label>
+                <select id="travelers" name="travelers" required>
+                    <option value="">Select number of travelers</option>
+                    <option value="1">1 Traveler</option>
+                    <option value="2">2 Travelers</option>
+                    <option value="3">3 Travelers</option>
+                    <option value="4">4 Travelers</option>
+                    <option value="5+">5+ Travelers</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget Range</label>
+                <select id="budget" name="budget" required>
+                    <option value="">Select your budget range</option>
+                    <option value="budget">Budget ($)</option>
+                    <option value="mid-range">Mid-Range ($$)</option>
+                    <option value="luxury">Luxury ($$$)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interests">Travel Interests</label>
+                <textarea id="interests" name="interests" placeholder="Tell us about your interests (e.g., culture, adventure, food, etc.)"></textarea>
+            </div>
+            <button type="submit" class="cta-button">Generate Travel Plan</button>
+        </form>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Address</h3>
+                    <p>123 Travel Street, Adventure City, AC 12345</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>info@travelai.com</p>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TravelAI</h3>
+                <p>Making travel planning smarter and easier</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#ai-assistant">AI Assistant</a>
+                <a href="#plan-trip">Plan Trip</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@travelai.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TravelAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html> 
